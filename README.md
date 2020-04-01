@@ -1,6 +1,7 @@
 import random
 import math
 import sys
+import time
 
 def good_job(playerName,attempts,playerScore):
     print("""
@@ -77,6 +78,7 @@ player_name = input("What is your name?   ")
 player_name = player_name.capitalize()
 
 show_rules = input("Would you like to see the rules before playing out game? [y] or [n]  ?")
+time.sleep(0.7)
 if show_rules.lower() == "y":
     print("""
                      -------------------------------------------
@@ -94,6 +96,7 @@ if show_rules.lower() == "y":
                    * If you don't want to proceed, type [n].
                    ------------------------------------------------------
                            >>>         """)
+    time.sleep(1)
     if proceed.lower() == "n":
         sys.exit("Sorry to hear that {}. See you soon!".format(player_name))
     elif proceed.lower() == "t":
@@ -109,15 +112,17 @@ if show_rules.lower() == "y":
                       * Attempt #9 = 12 points
 
               """)
+#----------------------------------->>>>>>>>>>>>>>>>>> You can comment out this part above with rules and score calculator
 
 def start():
 #    scores = [0]
     attempts = 0
     player_score = 102 # ---->>. I wanted to make game more interesting with scores , attempts are a bit simple as a result. So, the top score is 100 (102 - (1(attempt) *2) and so on with lower scores.
     random_number = random.randrange(1,10)
-    print(random_number)
+#    print(random_number) ------  >>>>> I used this for the testing purposes
     player_guess = 0
     while random_number != player_guess:
+        time.sleep(0.7)
         try:
             player_guess = int(input("Attempt # [{}] : {} , can you guess a number from 1 to 10?     ".format(attempts + 1,player_name)))
             if (player_guess < 1):
@@ -140,6 +145,7 @@ def start():
         else:    
 #---------------------------------if first answer in lower that random number ------------------------------------------------
             if player_guess < random_number:
+                time.sleep(0.7)
                 exit_due_to_score(player_score)
                 try:
                     player_guess= int(input("Attempt # [{}] : It is HIGHER!   ".format(attempts+1)   ))
@@ -162,10 +168,12 @@ def start():
                         print(error)
                 else:
                     if random_number == player_guess:
+                        time.sleep(0.7)
                         good_job(player_name,attempts,player_score)
                         help_input(player_name,attempts,player_score)
-
+            #------------------------second level while loop ---------------------------------------        
                 while random_number != player_guess:
+                    time.sleep(0.7)
                     if player_guess < random_number:
                         exit_due_to_score(player_score)
                         try:
@@ -189,6 +197,7 @@ def start():
                                 print(error)
                         else:
                             if random_number == player_guess:
+                                time.sleep(0.7)
                                 good_job(player_name,attempts,player_score)
                                 help_input(player_name,attempts,player_score)       
                     elif player_guess > random_number:
@@ -215,12 +224,14 @@ def start():
                         else:
 
                             if random_number == player_guess:
+                                time.sleep(0.7)
                                 good_job(player_name,attempts,player_score)
                                 help_input(player_name,attempts,player_score)       
             elif player_guess > random_number:
                 exit_due_to_score(player_score)
                 try:
                     player_guess = int(input("Attempt # [{}] : It is LOWER!   ".format(attempts + 1) ))
+                    time.sleep(0.7)
                     if (player_guess < 1):
                         raise ValueError("""
                                          --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
@@ -241,9 +252,12 @@ def start():
                 else:
 
                     if random_number == player_guess:
+                        time.sleep(0.7)
                         good_job(player_name,attempts,player_score)
                         help_input(player_name,attempts,player_score)
+                #------------------------------second level while loop ---------------------------------------
                 while random_number != player_guess:
+                    time.sleep(0.7)
                     if player_guess < random_number:
                         exit_due_to_score(player_score)
                         try:
@@ -268,6 +282,7 @@ def start():
                         else:
 
                             if random_number == player_guess:
+                                time.sleep(0.7)
                                 good_job(player_name,attempts,player_score)
                                 help_input(player_name,attempts,player_score)
 
@@ -294,6 +309,7 @@ def start():
                                 print(error)
                         else:
                             if random_number == player_guess:
+                                time.sleep(0.7)
                                 good_job(player_name,attempts,player_score)                            
                                 help_input(player_name,attempts,player_score)                        
             else:
