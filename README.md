@@ -1,5 +1,3 @@
-# TECHDEGREE PROJECT #1
-
 import random
 import math
 import sys
@@ -10,7 +8,6 @@ def good_job(playerName,attempts,playerScore):
     You got it, {} ! It took you [{}] attempts, so your score is >>> {} <<<<.
 
     """.format(playerName,attempts,playerScore))
-
 
 def exit_due_to_score(playerScore):
     if playerScore < -8:
@@ -26,22 +23,24 @@ def rewards(playerScore):
               """)
 
 
+
+
 def help_input(playerName,attempts,playerScore):
     question = input("Do you want to play again?  'y/n'   ")
     if question.lower() == "n":
 
         if highscore[0] > playerScore:
             print("""
-                  -----------------------------------
-                  Your HIGHSCORE is {} ! ! !
-                  -----------------------------------
+                  ----------------------------
+                  Your HIGHSCORE is *** {} ***  
+                  ----------------------------
                   """.format(highscore))
         elif highscore[0] <= playerScore:
             highscore[0] = playerScore
             print("""
-                  -----------------------------------
-                  Your HIGHSCORE is {} ! ! !
-                  -----------------------------------
+                  ----------------------------
+                  Your HIGHSCORE is *** {} ***
+                  ----------------------------
                   """.format(highscore))
 
         sys.exit("Bye {} !!! See you soon! ".format(playerName))
@@ -49,19 +48,20 @@ def help_input(playerName,attempts,playerScore):
 
         if highscore[0] > playerScore:
             print("""
-                  -----------------------------------
-                  Your HIGHSCORE is {} ! ! !
-                  -----------------------------------
+                  ----------------------------
+                  Your HIGHSCORE is *** {} ***
+                  ----------------------------
                   """.format(highscore))
         elif highscore[0] <= playerScore:
             highscore[0] = playerScore
             print("""
-                  -----------------------------------
-                  Your HIGHSCORE is {} ! ! !
-                  -----------------------------------
+                  ----------------------------
+                  Your HIGHSCORE is *** {} ***
+                  ----------------------------
                   """.format(highscore))
             print("Lets play again!")
         start()
+
 
 
 highscore = [ 0 ]       #     -------->>>>>>> I NEEDED TO DEFINE HIGHSCORE HERE OUTSIDE
@@ -76,35 +76,39 @@ print("""
 player_name = input("What is your name?   ")
 player_name = player_name.capitalize()
 
+show_rules = input("Would you like to see the rules before playing out game? [y] or [n]  ?")
+if show_rules.lower() == "y":
+    print("""
+                     -------------------------------------------
+                     !!!RULES OF THE GAME!!!:
+                     1.Guess an integer number from 1 to 10
+                     2.Top score is 100 points.
+                     3. You have 10 attempts to guess the number.
+                     -------------------------------------------
+     """)
 
+    proceed = input("""
+                   ------------------------------------------------------
+                   * If you want to see how we calculate points, type [t].
+                   * If you like to proceed with the game, press 'ENTER'.
+                   * If you don't want to proceed, type [n].
+                   ------------------------------------------------------
+                           >>>         """)
+    if proceed.lower() == "n":
+        sys.exit("Sorry to hear that {}. See you soon!".format(player_name))
+    elif proceed.lower() == "t":
+        print("""
+                      * Attempt #1 = 100 points
+                      * Attempt #2 = 96 points
+                      * Attempt #3 = 90 points
+                      * Attempt #4 = 82 points
+                      * Attempt #5 = 72 points
+                      * Attempt #6 = 60 points
+                      * Attempt #7 = 46 points
+                      * Attempt #8 = 30 points
+                      * Attempt #9 = 12 points
 
-#print("""
-#     RULES OF THE GAME:
-#     1.Guess an integer number from 1 to 10
-#     2.Top score is 100 points.
-#     3. You have 10 attempts to guess the number.
-#     """)
-#
-#proceed = input("""
-#                   ----------------------------------------------------
-#                   If you want to see how we calculate points, type [t].
-#                   If you like to proceed with the game, press 'ENTER'.
-#                   If you don't want to proceed, type [n].
-#                           >>>         """)
-#if proceed.lower() == "n":
-#    sys.exit("Sorry to hear that {}. See you soon!".format(player_name))
-#elif proceed.lower() == "t":
-#    print("""
-#          * Attempt #1 = 100 points
-#          * Attempt #2 = 96 points
-#          * Attempt #3 = 90 points
-#          * Attempt #4 = 82 points
-#          * Attempt #5 = 72 points
-#          * Attempt #6 = 60 points
-#          * Attempt #7 = 46 points
-#          * Attempt #8 = 30 points
-#          * Attempt #9 = 12 points
-#           """)
+              """)
 
 def start():
 #    scores = [0]
@@ -118,11 +122,11 @@ def start():
             player_guess = int(input("Attempt # [{}] : {} , can you guess a number from 1 to 10?     ".format(attempts + 1,player_name)))
             if (player_guess < 1):
                 raise ValueError("""
-                                 Invalid input. Only integer numbers from 1 to 10 allowed --- !!!
+                                 --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
                                  """)
             elif (player_guess > 10):
                 raise ValueError("""
-                                 Invalid input. Only integer numbers from 1 to 10 allowed --- !!!
+                                 --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
                                  """)
             attempts +=1
             player_score -= attempts * 2
@@ -133,79 +137,162 @@ def start():
                       """)
             else:
                 print(error)
-            # I have all ok, but when i type letters, i get also invalid message from system together with my error messages???
         else:    
-            #if answer in lower that random number ....
+#---------------------------------if first answer in lower that random number ------------------------------------------------
             if player_guess < random_number:
                 exit_due_to_score(player_score)
                 try:
                     player_guess= int(input("Attempt # [{}] : It is HIGHER!   ".format(attempts+1)   ))
+                    if (player_guess < 1):
+                        raise ValueError("""
+                                         --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
+                                         """)
+                    elif (player_guess > 10):
+                        raise ValueError("""
+                                         --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                         """)
                     attempts +=1
                     player_score -= attempts * 2
-                except ValueError:
-                    print("Invalid entry. Please type a integer number ex[4,6,9]")
-                if random_number == player_guess:
-                    good_job(player_name,attempts,player_score)
-                    help_input(player_name,attempts,player_score)
+                except ValueError as error:
+                    if "invalid literal" in str(error):
+                        print("""
+                              Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                              """)
+                    else:
+                        print(error)
+                else:
+                    if random_number == player_guess:
+                        good_job(player_name,attempts,player_score)
+                        help_input(player_name,attempts,player_score)
 
                 while random_number != player_guess:
                     if player_guess < random_number:
                         exit_due_to_score(player_score)
                         try:
                             player_guess= int(input("Attempt # [{}] : It is HIGHER!   ".format(attempts+1)   ))
+                            if (player_guess < 1):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
+                            elif (player_guess > 10):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
                             attempts +=1
                             player_score -= attempts * 2
-                        except ValueError:
-                            print("Invalid entry. Please type a integer number ex[4,6,9]")
-                        if random_number == player_guess:
-                            good_job(player_name,attempts,player_score)
-                            help_input(player_name,attempts,player_score)       
+                        except ValueError as error:
+                            if "invalid literal" in str(error):
+                                print("""
+                                      Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                                      """)
+                            else:
+                                print(error)
+                        else:
+                            if random_number == player_guess:
+                                good_job(player_name,attempts,player_score)
+                                help_input(player_name,attempts,player_score)       
                     elif player_guess > random_number:
                         exit_due_to_score(player_score)
                         try:
                             player_guess = int(input("Attempt # [{}] : It is LOWER!   ".format(attempts+1)  ))
+                            if (player_guess < 1):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers less than 1. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
+                            elif (player_guess > 10):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
                             attempts +=1
                             player_score -= attempts * 2
-                        except ValueError:
-                            print("Invalid entry. Please type a integer number ex[4,6,9]")
+                        except ValueError as error:
+                            if "invalid literal" in str(error):
+                                print("""
+                                      Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                                      """)
+                            else:
+                                print(error)
+                        else:
 
-                        if random_number == player_guess:
-                            good_job(player_name,attempts,player_score)
-                            help_input(player_name,attempts,player_score)       
+                            if random_number == player_guess:
+                                good_job(player_name,attempts,player_score)
+                                help_input(player_name,attempts,player_score)       
             elif player_guess > random_number:
                 exit_due_to_score(player_score)
                 try:
                     player_guess = int(input("Attempt # [{}] : It is LOWER!   ".format(attempts + 1) ))
+                    if (player_guess < 1):
+                        raise ValueError("""
+                                         --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
+                                         """)
+                    elif (player_guess > 10):
+                        raise ValueError("""
+                                         --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                         """)
                     attempts +=1
                     player_score -= attempts * 2
-                except ValueError:
-                    print("Invalid entry. Please type a integer number ex[4,6,9]")
+                except ValueError as error:
+                    if "invalid literal" in str(error):
+                        print("""
+                              Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                              """)
+                    else:
+                        print(error)
+                else:
 
-                if random_number == player_guess:
-                    good_job(player_name,attempts,player_score)
-                    help_input(player_name,attempts,player_score)
+                    if random_number == player_guess:
+                        good_job(player_name,attempts,player_score)
+                        help_input(player_name,attempts,player_score)
                 while random_number != player_guess:
                     if player_guess < random_number:
                         exit_due_to_score(player_score)
                         try:
                             player_guess = int(input("Attempt # [{}] : It is HIGHER!   ".format(attempts+1)  ))
-                            attempts +=1
-                            player_score -= attempts * 2
-                        except ValueError:
-                            print("Invalid entry. Please type a integer number ex[4,6,9]")
+                            if (player_guess < 1):
+                                raise ValueError("""
+                                                     --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
+                                                     """)
+                            elif (player_guess > 10):
+                                raise ValueError("""
+                                                     --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                                     """)
+                                attempts +=1
+                                player_score -= attempts * 2
+                        except ValueError as error:
+                            if "invalid literal" in str(error):
+                                print("""
+                                      Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                                      """)
+                            else:
+                                print(error)
+                        else:
 
-                        if random_number == player_guess:
-                            good_job(player_name,attempts,player_score)
-                            help_input(player_name,attempts,player_score)
+                            if random_number == player_guess:
+                                good_job(player_name,attempts,player_score)
+                                help_input(player_name,attempts,player_score)
 
                     elif player_guess > random_number:
                         exit_due_to_score(player_score)
                         try:
                             player_guess = int(input("Attempt # [{}] : It is LOWER!   ".format(attempts+1)  ))
+                            if (player_guess < 1):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers less than 0. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
+                            elif (player_guess > 10):
+                                raise ValueError("""
+                                                 --->>> IMPORTANT Invalid input. You cannot have numbers greater than 10. Only numbers from 1 to 10 allowed --- !!!
+                                                 """)
                             attempts +=1
                             player_score -= attempts * 2
-                        except ValueError:
-                            print("Invalid entry. Please type a integer number ex[4,6,9]")
+                        except ValueError as error:
+                            if "invalid literal" in str(error):
+                                print("""
+                                      Invalid input. Please try again by typing an integer number. ex[2,4,7]
+                                      """)
+                            else:
+                                print(error)
+                        else:
                             if random_number == player_guess:
                                 good_job(player_name,attempts,player_score)                            
                                 help_input(player_name,attempts,player_score)                        
@@ -215,3 +302,19 @@ def start():
                 help_input(player_name,attempts,player_score)
 
 start()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
