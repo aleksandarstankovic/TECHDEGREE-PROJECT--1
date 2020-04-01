@@ -11,6 +11,7 @@ def good_job(playerName,attempts,playerScore):
 
     """.format(playerName,attempts,playerScore))
 
+
 def exit_due_to_score(playerScore):
     if playerScore < -8:
         sys.exit("Sorry, Game Over!")
@@ -23,8 +24,6 @@ def rewards(playerScore):
               You are a WORLD CLASS player!!!
               -------------------------------
               """)
-
-
 
 
 def help_input(playerName,attempts,playerScore):
@@ -63,7 +62,6 @@ def help_input(playerName,attempts,playerScore):
                   """.format(highscore))
             print("Lets play again!")
         start()
-
 
 
 highscore = [ 0 ]       #     -------->>>>>>> I NEEDED TO DEFINE HIGHSCORE HERE OUTSIDE
